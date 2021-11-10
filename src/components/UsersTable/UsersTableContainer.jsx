@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import styles from './usersTableContainer.module.css'
 import { Table, Modal, Input, Button} from 'antd';
 import {DeleteOutlined, EditOutlined } from '@ant-design/icons'
@@ -12,6 +12,7 @@ import { useInput } from '../../hooks/useInput';
 
 
 const UsersTable = (props) => {
+  const [value, setValue] = useState('')
 
   const addNameInput = useInput('', {isEmpty: true})
   const addEmailInput = useInput('', {isEmpty: true})
@@ -149,11 +150,11 @@ const UsersTable = (props) => {
             visible= {props.isAdd}
             okText= {'Add'}
             onOk= {() => {
-              props.setIsAddCreator(false)
               if(addNameInput.isEmpty) return
               if(addEmailInput.isEmpty) return
               if(addWebsiteInput.isEmpty) return
               if(addCompanyInput.isEmpty) return
+              props.setIsAddCreator(false)
               props.addUserCreator({
                 key: Math.random(),
                 name: addNameInput.value,
@@ -231,8 +232,14 @@ const UsersTable = (props) => {
 
     if(!props.data.users) return <Preloader />
     return <div>
-      
-        <Table columns= {columns} dataSource= {props.data.users}/>
+        <Input style= {{marginLeft: 600, width: 200, border: '1px solid black', marginTop: 10}} onChange= {e => setValue(e.target.value)} placeholder= 'Enter name'/>
+        <Table columns= {columns} dataSource= {props.data.users.filter(el => {
+          if(value === '') {
+            return el
+          }else if(el.name.toLowerCase().includes(value.toLowerCase())){
+            return el
+          }
+        })}/>
       
         <Button className= {styles.button} onClick= {() => props.setIsAddCreator(true)}>Add user</Button>
       
