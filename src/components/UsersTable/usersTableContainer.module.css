@@ -1,0 +1,31 @@
+.wrapper{
+    
+}
+
+.remove{
+    color: red;
+    width: 50px;
+    font-size: 18px;
+}
+
+.edit{
+    font-size: 18px;
+}
+
+.input{
+    width: 200px;
+}
+
+.editItem{
+    padding: 3px;
+    font-weight: 500;
+
+}
+.button{
+    padding: 5px;
+    width: 200px;
+    height: 40px;
+    margin-left: 600px;
+    margin-top: -200px;
+   
+}
